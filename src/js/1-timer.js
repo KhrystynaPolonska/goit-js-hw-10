@@ -10,6 +10,8 @@ const dateInput = document.querySelector('#datetime-picker');
 let selectedDate = null;
 let timerId = null;
 
+startBtn.disabled = true; // По умолчанию кнопка неактивна
+
 flatpickr(dateInput, {
   enableTime: true,
   time_24hr: true,
@@ -18,25 +20,33 @@ flatpickr(dateInput, {
   onClose(selectedDates) {
     const now = new Date();
     selectedDate = selectedDates[0];
+
     if (selectedDate <= now) {
-      iziToast.error({ title: 'error', message: 'choose a date in the future' });
+      iziToast.error({ title: 'Error', message: 'Choose a future date' });
       startBtn.disabled = true;
     } else {
       startBtn.disabled = false;
     }
   },
 });
+
 startBtn.addEventListener('click', () => {
+  startBtn.disabled = true;
+  dateInput.disabled = true;
+
   timerId = setInterval(() => {
     const now = new Date();
     const delta = selectedDate - now;
 
     if (delta <= 0) {
       clearInterval(timerId);
+      iziToast.success({ title: 'Done!', message: 'Timer completed ✅' });
+      dateInput.disabled = false;
       return;
     }
 
     const { days, hours, minutes, seconds } = convertMs(delta);
+
     document.querySelector('[data-days]').textContent = addLeadingZero(days);
     document.querySelector('[data-hours]').textContent = addLeadingZero(hours);
     document.querySelector('[data-minutes]').textContent = addLeadingZero(minutes);
