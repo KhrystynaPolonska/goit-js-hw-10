@@ -1,4 +1,4 @@
-/**
+/*
   |============================
   | include css partials with
   | default @import url()
@@ -16,3 +16,31 @@
 @import url('./badges.css');
 @import url('./back-link.css');
 @import url('./footer.css');
+.data {
+  font-size: 20px;
+ width: 200px; 
+ height: 100px;
+}
+.buton {
+  height: 40px;
+  width: 90px;
+}
+.timer {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.field {
+  text-align: center;
+}
+
+.value {
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
